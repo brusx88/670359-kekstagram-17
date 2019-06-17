@@ -1,28 +1,19 @@
 'use strict';
 
-<<<<<<< HEAD
 document.querySelector('.img-filters').classList.remove('img-filters--inactive');
-=======
-var navigation = document.querySelector('.img-filters').classList.remove('img-filters--inactive');
->>>>>>> a1808ae40387f4108fe4fcca2529c286e1de85a7
 
 var pictures = document.querySelector('.pictures');
 var picture = document.querySelector('#picture')
-    .content
-    .querySelector('.picture');
+  .content
+  .querySelector('.picture');
 
-<<<<<<< HEAD
 var messages = [
-=======
-var comments = [
->>>>>>> a1808ae40387f4108fe4fcca2529c286e1de85a7
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
   'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
-<<<<<<< HEAD
 ];
 
 var names = [
@@ -33,9 +24,6 @@ var names = [
   'Окоп',
   'Арсений'
 ];
-=======
-]
->>>>>>> a1808ae40387f4108fe4fcca2529c286e1de85a7
 
 function random(min, max) {
   return Math.round(Math.random() * (max - min) + min);
@@ -44,7 +32,6 @@ function random(min, max) {
 var path = 'photos/';
 var type = '.jpg';
 
-<<<<<<< HEAD
 var photos = [];
 
 for (var i = 1; i <= 25; i++) {
@@ -76,21 +63,5 @@ function renderPhotos(photo) {
 var fragment = document.createDocumentFragment();
 for (var j = 0; j < 25; j++) {
   fragment.appendChild(renderPhotos(photos[j]));
-=======
-function renderPhotos(j) {
-  var photosElement = picture.cloneNode(true);
-
-  photosElement.querySelector('.picture__img').setAttribute('src', path + j + type);
-  photosElement.querySelector('.picture__likes').textContent = random(15 , 200);
-  photosElement.querySelector('.picture__comments').textContent = random(15 , 200);
-
-return photosElement;
-};
-
-var fragment = document.createDocumentFragment();
-for (var j = 1; j <= 25; j++) {
-  fragment.appendChild(renderPhotos(j));
->>>>>>> a1808ae40387f4108fe4fcca2529c286e1de85a7
 }
-
 pictures.appendChild(fragment);
