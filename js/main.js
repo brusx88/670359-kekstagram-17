@@ -1,5 +1,97 @@
 'use strict';
 
+var uploadFile = document.querySelector('#upload-file');
+var openEditForm = document.querySelector('.img-upload__overlay');
+var closeEditForm = document.querySelector('.img-upload__cancel');
+var controllSmaller = document.querySelector('.scale__control--smaller');
+var controllBigger = document.querySelector('.scale__control--bigger');
+var uploadPreview = document.querySelector('.img-upload__preview');
+var controlValue = document.querySelector('.scale__control--value');
+var scale = 100;
+var ESC_KEYCODE = 27;
+
+var onPopupEscPress = function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    closePopup();
+  }
+};
+
+var openPopup = function () {
+  openEditForm.classList.remove('hidden');
+  document.addEventListener('keydown', onPopupEscPress);
+};
+
+var closePopup = function () {
+  openEditForm.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupEscPress);
+  uploadFile.value = '';
+};
+
+uploadFile.addEventListener('change', function () {
+  openPopup();
+
+});
+
+closeEditForm.addEventListener('click', function () {
+  closePopup();
+});
+
+function changeScale(step, value) {
+  var newStep = step + value;
+  if (newStep >= 25 && newStep <= 100) {
+    return newStep;
+  }
+  return step;
+}
+
+var minusStep = -25;
+var plusStep = 25;
+
+function controll(nameListener, steps) {
+  nameListener.addEventListener('click', function () {
+    scale = changeScale(scale, steps);
+    controlValue.value = scale + '%';
+    var newScale = 'transform: scale(' + scale / 100 + ')';
+    uploadPreview.style = newScale;
+  });
+}
+controll(controllSmaller, minusStep);
+controll(controllBigger, plusStep);
+
+var effectsRadio = document.querySelectorAll('.effects__radio');
+
+var effects = [
+  'effects__preview--none',
+  'effects__preview--chrome',
+  'effects__preview--sepia',
+  'effects__preview--marvin',
+  'effects__preview--phobos',
+  'effects__preview--heat'
+];
+
+var filters = [
+  ' none',
+  ' grayscale(0..1)',
+  ' sepia(0..1)',
+  ' invert(0..100%)',
+  ' blur(0..3px)',
+  ' filter: brightness(1..3)',
+];
+
+var addThumbnailClickHandler = function (effect, classAdd, filter) {
+  effect.addEventListener('click', function () {
+    uploadPreview.classList = ['img-upload__preview'];
+    if (filter !== ' none') {
+      uploadPreview.classList.add(classAdd);
+      uploadPreview.style.filter = filter;
+    }
+  });
+};
+
+for (var t = 0; t < effectsRadio.length; t++) {
+  addThumbnailClickHandler(effectsRadio[t], effects[t], filters[t]);
+}
+
 document.querySelector('.img-filters').classList.remove('img-filters--inactive');
 
 var pictures = document.querySelector('.pictures');
@@ -60,9 +152,10 @@ function renderPhotos(photo) {
   return photosElement;
 }
 
+// eslint-disable-next-line eol-last
 var fragment = document.createDocumentFragment();
+
 for (var j = 0; j < 25; j++) {
   fragment.appendChild(renderPhotos(photos[j]));
   pictures.appendChild(fragment);
 }
-
