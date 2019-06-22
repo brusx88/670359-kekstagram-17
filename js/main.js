@@ -7,8 +7,11 @@ var controllSmaller = document.querySelector('.scale__control--smaller');
 var controllBigger = document.querySelector('.scale__control--bigger');
 var uploadPreview = document.querySelector('.img-upload__preview');
 var controlValue = document.querySelector('.scale__control--value');
+document.querySelector('.img-filters').classList.remove('img-filters--inactive');
 var scale = 100;
 var ESC_KEYCODE = 27;
+
+/* made popup  */
 
 var onPopupEscPress = function (evt) {
   if (evt.keyCode === ESC_KEYCODE) {
@@ -36,6 +39,8 @@ closeEditForm.addEventListener('click', function () {
   closePopup();
 });
 
+/* made zoom for pictures */
+
 function changeScale(step, value) {
   var newStep = step + value;
   if (newStep >= 25 && newStep <= 100) {
@@ -57,6 +62,8 @@ function controll(nameListener, steps) {
 }
 controll(controllSmaller, minusStep);
 controll(controllBigger, plusStep);
+
+/* here we have some effects for images */
 
 var effectsRadio = document.querySelectorAll('.effects__radio');
 
@@ -91,8 +98,7 @@ var addThumbnailClickHandler = function (effect, classAdd, filter) {
 for (var t = 0; t < effectsRadio.length; t++) {
   addThumbnailClickHandler(effectsRadio[t], effects[t], filters[t]);
 }
-
-document.querySelector('.img-filters').classList.remove('img-filters--inactive');
+/* added some photos and comments/likes */
 
 var pictures = document.querySelector('.pictures');
 var picture = document.querySelector('#picture')
@@ -152,10 +158,33 @@ function renderPhotos(photo) {
   return photosElement;
 }
 
-// eslint-disable-next-line eol-last
 var fragment = document.createDocumentFragment();
 
 for (var j = 0; j < 25; j++) {
   fragment.appendChild(renderPhotos(photos[j]));
   pictures.appendChild(fragment);
 }
+/* find placeholder and do some operations */
+var commentInput = document.querySelector('.text__description');
+commentInput.addEventListener('focus', function () {
+  document.removeEventListener('keydown', onPopupEscPress);
+});
+
+commentInput.addEventListener('blur', function () {
+  document.addEventListener('keydown', onPopupEscPress);
+});
+
+commentInput.addEventListener('invalid', function () {
+  if (commentInput.validity.tooLong) {
+    commentInput.setCustomValidity('Комментарий не должн превышать 140 символов');
+  }
+});
+
+commentInput.addEventListener('input', function (evt) {
+  var target = evt.target;
+  if (target.value.length > 140) {
+    target.setCustomValidity('Комментарий не должн превышать 140 символов');
+  } else {
+    target.setCustomValidity('');
+  }
+});
