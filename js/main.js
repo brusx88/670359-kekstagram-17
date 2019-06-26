@@ -32,7 +32,6 @@ var closePopup = function () {
 
 uploadFile.addEventListener('change', function () {
   openPopup();
-
 });
 
 closeEditForm.addEventListener('click', function () {
@@ -76,13 +75,15 @@ var effects = [
   'effects__preview--heat'
 ];
 
+// pin = 25%
+
 var filters = [
   ' none',
-  ' grayscale(0..1)',
-  ' sepia(0..1)',
-  ' invert(0..100%)',
-  ' blur(0..3px)',
-  ' filter: brightness(1..3)',
+  ' grayscale(0..1)', // 0.25
+  ' sepia(0..1)', // 0.25
+  ' invert(0..100%)', // 25%
+  ' blur(0..3px)', // 0.75px
+  ' filter: brightness(1..3)', // 1.5
 ];
 
 var addThumbnailClickHandler = function (effect, classAdd, filter) {
@@ -187,4 +188,50 @@ commentInput.addEventListener('input', function (evt) {
   } else {
     target.setCustomValidity('');
   }
+});
+/* made to move a slider */
+var getCoords = function (elem) {
+  var box = elem.getBoundingClientRect();
+
+  return {
+    left: box.left + pageXOffset,
+    right: box.right
+  };
+};
+var effectLevelLine = document.querySelector('.effect-level__line');
+var effectLevelPin = effectLevelLine.children[0];
+var effectLevelDepth = effectLevelLine.children[1];
+// var pinPercentage;
+effectLevelPin.addEventListener('mousedown', function (evt) {
+  evt.preventDefault();
+  var sliderCoords = getCoords(effectLevelLine);
+  var startCoord = getCoords(effectLevelPin);
+  var shiftX = evt.pageX - startCoord.left;
+
+  function onMouseMove(evtMove) {
+    var value = document.querySelector('.effect-level__value');
+    var newLeft = evtMove.pageX - shiftX - sliderCoords.left;
+    if (newLeft < 0) {
+      newLeft = 0;
+    }
+    var rightEdge = effectLevelLine.offsetWidth;
+    if (newLeft > rightEdge) {
+      newLeft = rightEdge;
+    }
+    effectLevelPin.style.left = newLeft + 'px';
+    effectLevelDepth.style.width = newLeft + 'px';
+    var widthProp = Math.floor((effectLevelDepth.offsetWidth * 100) / rightEdge);
+
+    value.setAttribute('value', widthProp);
+    uploadPreview.style.filter = 'grayscale(' + value.value + '%)';
+  }
+
+  function onMouseUp(upEvt) {
+    upEvt.preventDefault();
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseUp', onMouseUp);
+  }
+
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
 });
