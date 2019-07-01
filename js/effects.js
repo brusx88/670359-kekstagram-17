@@ -47,7 +47,7 @@
         window.uploadPreview.classList.add(classAdd);
         imgUpload.style.display = 'block';
       } else {
-        window.imgUpload.style.display = 'none';
+        imgUpload.style.display = 'none';
       }
       window.currentFilter = filter;
       window.setFilter(window.currentFilter, window.filterIntensity);
