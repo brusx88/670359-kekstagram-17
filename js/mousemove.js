@@ -5,6 +5,7 @@
   window.effectLevelPin = window.effectLevelLine.children[0];
   window.effectLevelDepth = window.effectLevelLine.children[1];
   var value = document.querySelector('.effect-level__value');
+  // determine the area of the mouse movement
   var getCoords = function (elem) {
     var box = elem.getBoundingClientRect();
 
@@ -36,7 +37,7 @@
 
       value.setAttribute('value', widthProp);
       window.filterIntensity = value.value;
-      window.setFilter(window.currentFilter, window.filterIntensity);
+      window.filters.setFilter(window.currentFilter, window.filterIntensity);
     }
 
     function onMouseUp(upEvt) {

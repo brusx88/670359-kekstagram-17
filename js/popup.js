@@ -5,6 +5,7 @@
   var openEditForm = document.querySelector('.img-upload__overlay');
   var closeEditForm = document.querySelector('.img-upload__cancel');
   var ESC_KEYCODE = 27;
+  // interaction with popup window
   window.onPopupEscPress = function (evt) {
     if (evt.keyCode === ESC_KEYCODE) {
       closePopup();

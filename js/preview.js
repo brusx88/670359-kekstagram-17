@@ -8,6 +8,7 @@
   var scale = 100;
   var minusStep = -25;
   var plusStep = 25;
+  // zoom size
   function changeScale(step, value) {
     var newStep = step + value;
     if (newStep >= 25 && newStep <= 100) {

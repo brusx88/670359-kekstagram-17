@@ -27,23 +27,19 @@
     'Окоп',
     'Арсений'
   ];
-
-  function random(min, max) {
-    return Math.round(Math.random() * (max - min) + min);
-  }
-
+  // generate random comments
   for (var i = 1; i <= 25; i++) {
     var comments = [];
-    for (var k = 0; k < random(1, 10); k++) {
+    for (var j = 0; j < window.util.random(1, 10); j++) {
       comments.push({
-        avatar: 'img/avatar-' + random(1, 6) + '.svg',
-        message: messages[random(0, 5)],
-        name: names[random(0, 5)],
+        avatar: 'img/avatar-' + window.util.random(1, 6) + '.svg',
+        message: messages[window.util.random(0, 5)],
+        name: names[window.util.random(0, 5)],
       });
     }
     photos.push({
       url: path + i + type,
-      likes: random(15, 200),
+      likes: window.util.random(15, 200),
       comments: comments,
     });
   }
@@ -60,8 +56,8 @@
 
   var fragment = document.createDocumentFragment();
 
-  for (var j = 0; j < 25; j++) {
-    fragment.appendChild(renderPhotos(photos[j]));
+  for (var t = 0; t < 25; t++) {
+    fragment.appendChild(renderPhotos(photos[t]));
     pictures.appendChild(fragment);
   }
 })();

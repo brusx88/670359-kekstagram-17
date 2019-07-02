@@ -3,19 +3,22 @@
 (function () {
   var effectsRadio = document.querySelectorAll('.effects__radio');
   var imgUpload = document.querySelector('.img-upload__effect-level');
-
-  window.setFilter = function (filter, intensity) {
-    var filterValues = {
-      'grayscale': intensity / 100,
-      'sepia': intensity / 100,
-      'invert': intensity + '%',
-      'blur': 3 * (intensity / 100) + 'px',
-      'brightness': 2 * (intensity / 100) + 1
-    };
-    if (filter === 'none') {
-      window.uploadPreview.removeAttribute('style');
-    } else {
-      window.uploadPreview.style.filter = filter + '(' + filterValues[filter] + ')';
+  imgUpload.style.display = 'none';
+  // calculate the color depth
+  window.filters = {
+    setFilter: function setFilter(filter, intensity) {
+      var filterValues = {
+        'grayscale': intensity / 100,
+        'sepia': intensity / 100,
+        'invert': intensity + '%',
+        'blur': 3 * (intensity / 100) + 'px',
+        'brightness': 2 * (intensity / 100) + 1
+      };
+      if (filter === 'none') {
+        window.uploadPreview.removeAttribute('style');
+      } else {
+        window.uploadPreview.style.filter = filter + '(' + filterValues[filter] + ')';
+      }
     }
   };
 
@@ -50,7 +53,7 @@
         imgUpload.style.display = 'none';
       }
       window.currentFilter = filter;
-      window.setFilter(window.currentFilter, window.filterIntensity);
+      window.filters.setFilter(window.currentFilter, window.filterIntensity);
     });
   };
 
