@@ -5,7 +5,7 @@
   var imgUpload = document.querySelector('.img-upload__effect-level');
   imgUpload.style.display = 'none';
   // calculate the color depth
-  
+
   var setFilter = function setFilter() {
     var filterValues = {
       'grayscale': window.filterIntensity / 100,
@@ -55,11 +55,11 @@
         imgUpload.style.display = 'none';
       }
       window.currentFilter = filter;
-      filters.setFilter();
+      setFilter();
     });
   };
 
-  for (var t = 0; t < effectsRadio.length; t++) {
-    addThumbnailClickHandler(effectsRadio[t], effects[t], filters[t]);
+  for (var i = 0; i < effectsRadio.length; i++) {
+    addThumbnailClickHandler(effectsRadio[i], effects[i], filters[i]);
   }
 })();
