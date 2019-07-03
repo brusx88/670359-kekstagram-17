@@ -56,8 +56,8 @@
 
   var fragment = document.createDocumentFragment();
 
-  for (var t = 0; t < 25; t++) {
-    fragment.appendChild(renderPhotos(photos[t]));
+  for (i = 0; i < 25; i++) {
+    fragment.appendChild(renderPhotos(photos[i]));
     pictures.appendChild(fragment);
   }
 })();
