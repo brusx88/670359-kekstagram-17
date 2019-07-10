@@ -1,28 +1,30 @@
 'use strict';
 
 (function () {
-  var pictures = document.querySelector('.pictures');
-  var picture = document.querySelector('#picture')
+  window.pictures = document.querySelector('.pictures');
+  window.picture = document.querySelector('#picture')
     .content
     .querySelector('.picture');
 
   var onSuccess = function (response) {
-    var photos = response.slice(0, 25);
+    window.photos = response.slice(0, 25);
+    // var imgPopular = document.querySelector('#filter-popular');
 
     function renderPhotos(photo) {
-      var photosElement = picture.cloneNode(true);
+      var photosElement = window.picture.cloneNode(true);
 
       photosElement.querySelector('.picture__img').setAttribute('src', photo.url);
       photosElement.querySelector('.picture__likes').textContent = photo.likes;
       photosElement.querySelector('.picture__comments').textContent = photo.comments.length;
+
       return photosElement;
     }
 
     var fragment = document.createDocumentFragment();
 
-    for (var i = 0; i < photos.length; i++) {
-      fragment.appendChild(renderPhotos(photos[i]));
-      pictures.appendChild(fragment);
+    for (var i = 0; i < window.photos.length; i++) {
+      fragment.appendChild(renderPhotos(window.photos[i]));
+      window.pictures.appendChild(fragment);
     }
   };
 
@@ -38,4 +40,5 @@
     document.body.insertAdjacentElement('afterbegin', node);
   };
   window.load(onSuccess, errorHandler);
+
 })();
