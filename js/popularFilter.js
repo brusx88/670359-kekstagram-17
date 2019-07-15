@@ -5,27 +5,16 @@
   window.picture = document.querySelector('#picture')
     .content
     .querySelector('.picture');
+  document.querySelector('.img-filters').classList.remove('img-filters--inactive');
+  var imgPopular = document.querySelector('#filter-popular');
+
+  imgPopular.addEventListener('click', function () {
+    window.renderPhotos(window.photos);
+  });
 
   var onSuccess = function (response) {
     window.photos = response.slice(0, 25);
-    // var imgPopular = document.querySelector('#filter-popular');
-
-    function renderPhotos(photo) {
-      var photosElement = window.picture.cloneNode(true);
-
-      photosElement.querySelector('.picture__img').setAttribute('src', photo.url);
-      photosElement.querySelector('.picture__likes').textContent = photo.likes;
-      photosElement.querySelector('.picture__comments').textContent = photo.comments.length;
-
-      return photosElement;
-    }
-
-    var fragment = document.createDocumentFragment();
-
-    for (var i = 0; i < window.photos.length; i++) {
-      fragment.appendChild(renderPhotos(window.photos[i]));
-      window.pictures.appendChild(fragment);
-    }
+    window.renderPhotos(window.photos);
   };
 
   var errorHandler = function (errorMessage) {
