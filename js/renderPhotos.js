@@ -1,6 +1,9 @@
 'use strict';
 
 (function () {
+  var lastTimeOut;
+  var DEBOUNCE_INTERVAL = 500;
+
   window.renderPhotos = function (arrayPhotos) {
     function render(photo) {
       var photosElement = window.picture.cloneNode(true);
@@ -18,5 +21,13 @@
       fragment.appendChild(render(arrayPhotos[i]));
       window.pictures.appendChild(fragment);
     }
+  };
+
+
+  window.debounce = function (rr) {
+    if (lastTimeOut) {
+      this.window.clearTimeout(lastTimeOut);
+    }
+    lastTimeOut = this.window.setTimeout(rr, DEBOUNCE_INTERVAL);
   };
 })();

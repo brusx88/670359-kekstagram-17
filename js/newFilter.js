@@ -16,4 +16,5 @@
     }
     window.renderPhotos(shaffleArray(window.photos, 10));
   });
+
 })();
