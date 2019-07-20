@@ -1,8 +1,6 @@
 'use strict';
 
 (function () {
-  var lastTimeOut;
-  var DEBOUNCE_INTERVAL = 500;
 
   window.renderPhotos = function (arrayPhotos) {
     function render(photo) {
@@ -10,7 +8,7 @@
 
       photosElement.querySelector('.picture__img').setAttribute('src', photo.url);
       photosElement.querySelector('.picture__likes').textContent = photo.likes;
-      photosElement.querySelector('.picture__comments').textContent = photo.comments.length;
+      photosElement.querySelector('.picture__comments').textContent = photo.comments ? photo.comments.length : 0;
 
       return photosElement;
     }
@@ -21,13 +19,5 @@
       fragment.appendChild(render(arrayPhotos[i]));
       window.pictures.appendChild(fragment);
     }
-  };
-
-
-  window.debounce = function (rr) {
-    if (lastTimeOut) {
-      this.window.clearTimeout(lastTimeOut);
-    }
-    lastTimeOut = this.window.setTimeout(rr, DEBOUNCE_INTERVAL);
   };
 })();

@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+
   window.pictures = document.querySelector('.pictures');
   window.picture = document.querySelector('#picture')
     .content
@@ -9,7 +10,10 @@
   var imgPopular = document.querySelector('#filter-popular');
 
   imgPopular.addEventListener('click', function () {
-    window.renderPhotos(window.photos);
+    var delay = window.debounce(function () {
+      window.renderPhotos(window.photos);
+    }, window.DEBOUNCE_INTERVAL);
+    delay();
   });
 
   var onSuccess = function (response) {

@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+
   var newFilter = document.querySelector('#filter-new');
 
   newFilter.addEventListener('click', function () {
@@ -14,7 +15,10 @@
       }
       return results;
     }
-    window.renderPhotos(shaffleArray(window.photos, 10));
+    var delay = window.debounce(function () {
+      window.renderPhotos(shaffleArray(window.photos, 10));
+    }, window.DEBOUNCE_INTERVAL);
+    delay();
   });
 
 })();
